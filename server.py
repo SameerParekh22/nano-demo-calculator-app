@@ -1,34 +1,25 @@
 from flask import Flask, request, jsonify
 
-app = Flask(__name__)
+app = Flask(_name_)
 
-@app.route("/calculator/greeting", methods=['GET'])
+@app.route('/calculator/greeting', methods=['GET'])
 def greeting():
-    return "Welcome to the Calculator API!"
+  return jsonify({'message': 'Welcome to the calculator service!'})
 
-@app.route("/calculator/add", methods=['POST'])
+@app.route('/calculator/add', methods=['POST'])
 def add():
-    try:
-        data = request.get_json()  # Corrected to get_json() instead of json
-        num1 = data.get('num1')
-        num2 = data.get('num2')
-        
-        result = num1 + num2
-        return jsonify({"result": result})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+  num1 = request.form.get('num1')
+  num2 = request.form.get('num2')
+  result = num1 + num2
+  return jsonify({'result': result})
 
-@app.route("/calculator/subtract", methods=['POST'])
+@app.route('/calculator/subtract', methods=['POST'])
 def subtract():
-    try:
-        data = request.get_json()  # Corrected to get_json() instead of json
-        num1 = data.get('num1')
-        num2 = data.get('num2')
-        
-        result = num1 - num2
-        return jsonify({"result": result})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+  num1 = request.form.get('num1')
+  num2 = request.form.get('num2')
+  result = num1 - num2
+  return jsonify({'result': result})
+
 
 if __name__ == '__main__':
     app.run(port=8080, host='0.0.0.0')
