@@ -1,40 +1,34 @@
 from flask import Flask, request, jsonify
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 @app.route("/calculator/greeting", methods=['GET'])
 def greeting():
-    return "Hello world!", 200
+    return "Welcome to the Calculator API!"
 
 @app.route("/calculator/add", methods=['POST'])
 def add():
-    data = request.get_json()
-    first_number = data.get("first")
-    second_number = data.get("second")
-    
-    if first_number is None or second_number is None:
-        return jsonify({"error": "Both 'first' and 'second' numbers are required."}), 400
-    
     try:
-        result = first_number + second_number
-        return jsonify({"result": result}), 200
+        data = request.json  # Assuming the request contains JSON data
+        num1 = data.get('num1')
+        num2 = data.get('num2')
+        
+        result = num1 + num2
+        return jsonify({"result": result})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 400
 
 @app.route("/calculator/subtract", methods=['POST'])
 def subtract():
-    data = request.get_json()
-    first_number = data.get("first")
-    second_number = data.get("second")
-    
-    if first_number is None or second_number is None:
-        return jsonify({"error": "Both 'first' and 'second' numbers are required."}), 400
-    
     try:
-        result = first_number - second_number
-        return jsonify({"result": result}), 200
+        data = request.json  # Assuming the request contains JSON data
+        num1 = data.get('num1')
+        num2 = data.get('num2')
+        
+        result = num1 - num2
+        return jsonify({"result": result})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 400
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(port=8080, host='0.0.0.0')
