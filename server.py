@@ -9,7 +9,7 @@ def greeting():
 @app.route("/calculator/add", methods=['POST'])
 def add():
     try:
-        data = request.json  # Assuming the request contains JSON data
+        data = request.get_json()  # Corrected to get_json() instead of json
         num1 = data.get('num1')
         num2 = data.get('num2')
         
@@ -21,7 +21,7 @@ def add():
 @app.route("/calculator/subtract", methods=['POST'])
 def subtract():
     try:
-        data = request.json  # Assuming the request contains JSON data
+        data = request.get_json()  # Corrected to get_json() instead of json
         num1 = data.get('num1')
         num2 = data.get('num2')
         
